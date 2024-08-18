@@ -1,0 +1,23 @@
+# options specified here will apply to all posts in this folder
+
+# Draft by default
+draft: true
+
+# freeze computational output
+# (see https://quarto.org/docs/projects/code-execution.html#freeze)
+freeze: auto
+
+# Article formatting
+date-format: long
+published-title: "" # No "Published:"
+toc: false
+highlight-style: a11y
+page-layout: article
+
+# SVG charts
+dev: svglite
+fig-format: svg
+
+# Add if necessary
+# csl: the-quarterly-journal-of-economics.csl
+# reference-location: document # or margin

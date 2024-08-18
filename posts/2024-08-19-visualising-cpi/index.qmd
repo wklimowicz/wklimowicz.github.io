@@ -1,0 +1,385 @@
+---
+title: Inflation is Down, but the Price Level is 13% Higher
+date: "2024-08-18"
+knitr:
+  opts_chunk:
+      echo: true
+      # eval: true
+      warning: false
+      message: false
+      comment:  # removes ## from output
+      code-fold: true
+draft: true
+# citations-hover: true
+# footnotes-hover: true
+---
+
+```{css}
+/*| echo: false */
+figcaption {
+  margin: auto;
+  text-align: center;
+}
+```
+
+Inflation is the first derivative of the price level. This causes confusion because a fall in inflation doesn't (always) mean a fall in the price level^[[Three in ten Britons think this means that prices are falling](https://yougov.co.uk/politics/articles/49229-how-well-do-britons-understand-inflation)]. The surge in inflation after COVID has made things more expensive than before COVID, and more expensive than they would have been if the Bank of England (BoE) target was hit.
+
+
+Here are some plots to help visualise inflation and the price level in the past few years. 
+
+```{r}
+#| code-summary: "Setup"
+
+library(tidyverse)
+library(glue)
+
+color_scheme <- function(...) palette.colors(...) |> unname()
+options(ggplot2.discrete.fill = color_scheme(palette = "Tableau 10"))
+colors <- color_scheme(palette = "Tableau 10")
+
+# Downloaded (by hand) from:
+# https://www.ons.gov.uk/economy/inflationandpriceindices/timeseries/d7bt/mm23
+cpi_level <- read_csv(
+  here::here("posts/2024-08-19-visualising-cpi/cpi-level.csv"),
+  col_names = c("date", "value")
+  ) |>
+  slice(191:n()) |>
+  mutate(
+    date = ym(date),
+    value = as.numeric(value)
+  ) |>
+  mutate(
+    value = value / value[date == "2020-01-01"] * 100
+  )
+
+
+# Downloaded (by hand) from:
+# https://www.ons.gov.uk/economy/inflationandpriceindices/timeseries/d7bt/mm23
+cpi <- read_csv(
+  here::here("posts/2024-08-19-visualising-cpi/cpi-series.csv"),
+  col_names = c("date", "value")
+  ) |>
+  slice(186:n()) |>
+  mutate(
+    date = ym(date),
+    value = as.numeric(value)
+  )
+
+
+
+
+theme_minimal2 <- function(size = 10) {
+  theme_minimal(size) +
+  theme(
+    panel.grid.minor.y = element_blank(),
+    panel.grid.minor.x = element_blank(),
+    plot.title.position = "plot",
+  )
+}
+
+```
+
+Start off with how the price level has looked since the 90's
+
+
+```{r}
+#| code-summary: "Plot"
+#| fig-cap: CPI back to the 1988
+
+cpi_level |>
+  ggplot(aes(x = date, y = value)) +
+  geom_line() +
+  labs(
+    x = NULL,
+    y = NULL,
+    subtitle = "CPI Price Level Index, Jan 2020 = 100",
+    color = NULL,
+  ) +
+  theme_minimal2(15)
+
+
+```
+
+Zooming in on the period after January 2020, inflation jumps up in early 2021. CPI inflation peaked in October 2022 at 11.1%, which is the point at which the 12 month change was steepest:
+
+
+```{r}
+#| code-summary: "Plot"
+#| fig-cap: CPI 2018 - 2024
+#| layout-ncol: 2
+#| column: page
+
+peak_inflation <- ymd("2022-10-01")
+
+# x^12 = 1.02
+# 12 * log(x) = log(1.02)
+annual_2_percent = exp((log(1.02) / 12))
+
+october_max <- cpi |>
+  filter(
+    date >= "2021-01-01",
+    date <= "2024-01-01"
+  )
+
+october_max |>
+  ggplot(aes(x = date, y = value)) +
+  geom_line() +
+  annotate(
+    "text",
+    x = peak_inflation - 90,
+    y = 11.5,
+    label = "11.1% Growth"
+  ) +
+  annotate(
+    "point",
+    x = peak_inflation,
+    y = max(october_max$value),
+    color = colors[1],
+    size = 3
+  ) +
+  geom_vline(
+    aes(xintercept = peak_inflation),
+    linetype = "dashed"
+    ) +
+  geom_hline(
+    aes(
+      yintercept = max(october_max$value)
+    ),
+    linetype = "dashed"
+    ) +
+  labs(
+    x = NULL,
+    y = NULL,
+    title = "CPI Growth",
+    color = NULL,
+  ) +
+  theme_minimal2(15)
+
+
+peak_inflation <- ymd("2022-10-01")
+
+# x^12 = 1.02
+# 12 * log(x) = log(1.02)
+annual_2_percent = exp((log(1.02) / 12))
+
+october_max <- cpi_level |>
+  filter(
+    date <= peak_inflation,
+    date >= (peak_inflation - 370)
+  ) |>
+  mutate(trend_increment = c(0, rep((max(value) - min(value)), 12))) |>
+  mutate(linear_trend = min(value) + cumsum(trend_increment / 12))
+
+cpi_level |>
+  filter(
+    date >= "2021-01-01",
+    date <= "2024-01-01"
+  ) |>
+  ggplot(aes(x = date, y = value)) +
+  geom_line() +
+  geom_line(
+    data = october_max,
+    aes(x = date, y = linear_trend),
+    color = colors[1],
+    linewidth = 1.5,
+    linetype = "11"
+  ) +
+  geom_vline(
+    aes(xintercept = peak_inflation),
+    linetype = "dashed"
+    ) +
+  annotate(
+    "text",
+    x = peak_inflation - 120,
+    y = 117.5,
+    label = "11.1% Growth"
+  ) +
+  annotate(
+    "point",
+    x = peak_inflation,
+    y = max(october_max$value),
+    color = colors[1],
+    size = 2
+  ) +
+  labs(
+    x = NULL,
+    y = NULL,
+    title = "CPI Level",
+    color = NULL,
+  ) +
+  theme_minimal2(15)
+```
+
+
+
+Now, we can draw a 2% trend line from January 2020 to adjust for the undershoot in 2020, to see where the target would be currently. We've averaged ~4.8% inflation since then, which is approximately a 3% overshoot, multiplied by 4.5 years gives us the 13%.
+
+
+```{r}
+#| code-summary: "Plot"
+#| fig-cap: CPI vs Target
+start_date <- "2020-01-01"
+
+
+cpi_data <- cpi_level |>
+  mutate(value = value / value[date == start_date] * 100) |>
+  mutate(trend = 1) %>%
+  mutate(trend = c(
+    NA[date < start_date],
+    1,
+    cumprod(trend[date > start_date] * annual_2_percent)
+  ) * 100)
+
+above_trend <- cpi_data |>
+  filter(date == max(date)) |>
+  transmute((value/trend) - 1) |>
+  pluck(1) |>
+  round(3)
+
+actual_growth <- cpi_data |>
+  filter(date == max(date)) |>
+  transmute(v = value / 100, time = as.numeric(difftime(max(date), start_date, units = "days")) / 365) %>%
+  mutate(root = exp(log(v) / time) - 1) |>
+  pluck("root")
+
+actual_monthly_growth <- pracma::nthroot(actual_growth + 1, 12)
+
+
+cols <- c(
+  "Actual" = "black",
+  "Trend" = colors[1],
+  "Target" = colors[2]
+)
+
+final_target <- cpi_data |>
+  filter(date == max(date))
+
+
+limits <- c(ymd("2018-01-01"), max(cpi_data$date) + 300)
+
+library(ggtext)
+
+cpi_data |>
+  filter(date >= "2018-01-01") |>
+  mutate(actual = 1) |>
+  mutate(actual = c(1[date < start_date], 1, cumprod(actual[date > start_date] * actual_monthly_growth))) |>
+  mutate(actual = actual * 100) |>
+  rename(
+    Target = trend,
+    Trend = actual,
+    Actual = value
+  ) |>
+  tidyr::pivot_longer(cols = c("Target", "Trend", "Actual")) |>
+  ggplot() +
+  geom_line(aes(x = date, y = value, color = name), linewidth = 1) +
+  annotate(
+  "text",
+  x = date("2023-01-01"),
+  y = 104.3,
+  label = "2% Target",
+  size = 5,
+  color = colors[2]
+  ) +
+  annotate(
+    "text",
+    x = date("2019-09-01"),
+    y = 106 + 0.3,
+    label = paste0("Annual Average \n since 2020: ", round(actual_growth * 100, 2), "%"),
+    size = 5,
+    color = colors[1]
+  ) +
+  annotate(
+    "segment",
+    x = max(cpi_data$date),
+    y = final_target$trend,
+    yend = final_target$value,
+    linewidth = 0.5,
+    linetype = "dotted"
+  ) +
+  annotate(
+    "text",
+    x = max(cpi_data$date) + 220,
+    y = 116,
+    label = glue("{round(above_trend, 3) * 100}% gap"),
+    size = 5
+  ) +
+  scale_y_continuous(breaks = scales::pretty_breaks()) +
+  scale_x_date(limits = limits) +
+  scale_color_manual(
+    values = cols
+  ) +
+  labs(
+    x = NULL,
+    y = NULL,
+    subtitle = "CPI Index (2020 Jan = 100)",
+    color = NULL,
+  ) +
+  theme_minimal2(10) +
+  theme(
+    plot.title.position = "plot",
+    legend.position = "none",
+    legend.position.inside = c(0.2, 0.7),
+  )
+```
+
+Doing the calculation properly, if the BoE 2% target was hit since the pandemic begun, the price level would have been 9.3% higher than January 2020. It is currently 23.7% higher. Taking the ratio $\frac{123.7\%}{109.3\%}$ equals the 13.1% "excess inflation" compared to meeting the inflation target throughout.
+
+There are good reasons for this permanent increase, both the initial surge, and the fact the Bank isn't trying to create deflation to get back on the trend. The target is assymetric, and trying to lower prices by 13% using interest rates would likely result in a large increase in unemployment. Whether the target should be symmetric and over what time horizon is an active reserach area in Macroeconomics.
+
+
+# Aside on ONS API's
+
+## Old API
+
+I downloaded the inflation data for this post manually from the ONS website, because this API only works sporadically, but enough to keep this [GitHub Actions powered repo](https://github.com/wklimowicz/cpi_overshoot/) going. I'm not sure if the ONS are plannning to replace it. I borrowed and translated this code to R from [Arthur Turrell's Blog](https://aeturrell.com/blog/posts/ons-api/).
+
+```{r}
+#| eval: false
+#| code-fold: false
+ons_time_series <- function(dataset_id, timeseries_id) {
+  api_endpoint <- "https://api.ons.gov.uk/v1/"
+
+  url <- paste(
+    sep = "/",
+    api_endpoint,
+    "timeseries", timeseries_id,
+    "dataset", dataset_id,
+    "data"
+  )
+
+  return(jsonlite::fromJSON(url))
+}
+
+cpi <- ons_time_series("MM23", "D7BT") %>%
+  purrr::pluck("months")
+```
+
+## New API
+
+This API is new, but the only CPI series I found was CPIH and it only goes up to December 2020:
+
+```{r}
+#| code-fold: false
+cpih_raw <- jsonlite::fromJSON(
+  "https://api.beta.ons.gov.uk/v1/datasets/cpih01/editions/time-series/versions/4/observations?time=*&geography=K02000001&aggregate=cpih1dim1A0"
+)
+
+time <- cpih_raw |>
+  pluck("observations") |>
+  pluck("dimensions") |>
+  pluck("Time")
+
+values <- cpih_raw |>
+  pluck("observations") |>
+  pluck("observation")
+
+cpih <- tibble(time, values) |>
+  transmute(
+    date = parse_date_time(paste0("01-", label), "d-b-y") |> as_date(),
+    value = values |> as.numeric()
+  ) |>
+  arrange(date)
+
+tail(cpih) |>
+  tinytable::tt()
+```

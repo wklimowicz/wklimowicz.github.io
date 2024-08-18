@@ -18,8 +18,8 @@ website:
     #   href: https://www.github.com/wklimowicz
     #   favicon
     right:
-      # - text: Blog
-      #   href: blog.qmd
+      - text: Blog
+        href: blog.qmd
       # - text: Research
       #   href: research/research.qmd
       - text: Software
