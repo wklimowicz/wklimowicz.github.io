@@ -1,0 +1,17 @@
+---
+image: _files/wojtek.jpg
+about:
+  template: trestles
+---
+
+I'm an MRes Student studying Economics at UCL, and an Economist at the
+Department for Education (DfE). My research is in Labour and Education Economics, and
+at the DfE I work on school teacher analysis.
+
+::: {.custom-link-div}
+
+[<i class="bi bi-github"></i> GitHub](https://github.com/wklimowicz)
+[<i class="bi bi-linkedin"></i> LinkedIn](https://www.linkedin.com/in/wojciech-klimowicz-6a0b78168)
+<!-- [<i class="bi bi-envelope"></i> Email](https://github.com/wklimowicz) -->
+
+:::

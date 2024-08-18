@@ -1,0 +1,42 @@
+project:
+  type: website
+  render:
+    - "!posts/**/*.qmd"
+
+website:
+  title: "Wojciech Klimowicz"
+  # site-url: wklimowicz.github.io
+  description: "Personal website for Wojciech Klimowicz"
+  search: false
+  draft-mode: gone
+  # favicon: TODO:
+  navbar:
+    pinned: true
+    # logo: _files/julia-dots.svg?
+    # tools:
+    # - icon: github
+    #   href: https://www.github.com/wklimowicz
+    #   favicon
+    right:
+      # - text: Blog
+      #   href: blog.qmd
+      # - text: Research
+      #   href: research/research.qmd
+      - text: Software
+        href: software.qmd
+format:
+  html:
+    email-obfuscation: javascript
+    title-block-banner: false
+    theme:
+      - _css/post-listing-template.ejs
+      - _css/post-listing.css
+      - _css/custom.scss
+      - _css/footer.scss
+    include-after-body:
+      text: |
+        <footer class="footer">
+        © 2024-2024 Wojciech Klimowicz.
+        <!-- <a href="https://creativecommons.org/licenses/by/3.0/">Some Rights Reserved</a> -->
+        Website built with Quarto.
+        </footer>

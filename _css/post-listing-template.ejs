@@ -1,0 +1,40 @@
+```{=html}
+
+<div class="posts">
+
+<% items = items.sort(function(a, b) {
+        if (a.date === b.date) {
+            return b.title.localeCompare(a.title);
+        } else {
+            return new Date(b.date) - new Date(a.date);
+        }
+    });
+    var currentYear = null;
+    items.forEach(function(item) {
+        var date = new Date(item.date);
+        var postYear = date.getFullYear();
+        var postMonth = date.toLocaleString('default', { month: 'long' });
+        var postDay = date.getDate();
+        if (postYear !== currentYear) {
+            currentYear = postYear;
+%>
+            <div class="posts-group">
+              <div class="post-year"><%= currentYear %></div>
+              <ul class="posts-list">
+        <% } %>
+                <li class="post-item">
+                  <a href="<%= item.path %>">
+                    <span class="post-title"><%= item.title %></span>
+                    <span class="post-day"><%= postMonth %> <%= postDay %></span>
+                  </a>
+                </li>
+        <% if (items.indexOf(item) === items.length - 1 || new Date(items[items.indexOf(item) + 1].date).getFullYear() !== postYear) { %>
+              </ul>
+            </div>
+        <% }
+    }); %>
+
+
+</div>
+
+```

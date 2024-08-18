@@ -1,0 +1,18 @@
+---
+title: "Blog"
+listing:
+  id: posts-listing
+  contents: posts
+  template: _css/post-listing-template.ejs
+  feed: true
+---
+
+::: {#posts-listing}
+:::
+
+
+::: {.custom-link-div}
+[<i class="bi bi-rss"></i> RSS](blog.xml)
+:::
+
+

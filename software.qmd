@@ -1,0 +1,12 @@
+---
+title: "Software"
+---
+
+I've created a few R packages for working with UK labour market datasets. All of them take the source data and compile into a single R data frame, so that it's possible to do time series analysis out of the box.
+
+* ONS Labour Force Survey (LFS) -- [tidylfs](https://wklimowicz.github.io/tidylfs/)
+
+* ONS Annual Survey of Hours and Earnings (ASHE) -- [tidyashe](https://github.com/wklimowicz/tidyashe)
+
+* Understanding Society/UK Household Longitudinal Study (UKHLS/BHPS) -- [tidyusoc](https://wklimowicz.github.io/tidyusoc/)
+

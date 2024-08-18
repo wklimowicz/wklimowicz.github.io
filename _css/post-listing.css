@@ -1,0 +1,81 @@
+/*-- scss:defaults --*/
+
+/* ============= */
+/* Listing page
+/* ============= */
+
+.posts {
+ width:100%;
+ max-width:800px;
+ text-align:left;
+ padding:00px;
+ margin:00px auto
+}
+/* Grey dash on each post */
+/* .posts .post-item { */
+/*  border-bottom:1px grey dashed */
+/* } */
+
+/* @media(max-width:900px) { */
+/*  .posts { */
+/*   max-width:860px */
+/*  } */
+/* } */
+.posts:not(:last-of-type) {
+ border-bottom:1px solid #dcdcdc
+}
+/* .dark-theme .posts:not(:last-of-type) { */
+/*  border-color:#4a4b50 */
+/* } */
+.posts-group {
+ display:flex;
+ margin-bottom:1.9em;
+ line-height:normal
+}
+@media(max-width:900px) {
+ .posts-group {
+  display:block
+ }
+}
+.posts-list {
+ flex-grow:1;
+ margin:0;
+ padding:0;
+ list-style:none
+}
+.posts .post-title {
+ font-size:1rem;
+ margin:5px 0
+}
+.posts .post-year {
+ padding-top:6px;
+ margin-right:1.8em;
+ font-size:1.6em;
+ opacity:.6
+}
+@media(max-width:900px) {
+ .posts .post-year {
+  margin:-6px 0 4px
+ }
+}
+.posts .post-item a {
+ display:flex;
+ justify-content:space-between;
+ align-items:baseline;
+ padding:4px 0;
+ text-decoration:none;
+ color:black
+}
+.posts .post-day {
+ flex-shrink:0;
+ margin-left:1em;
+ opacity:.6
+}
+.post {
+ width:100%;
+/* Post width */
+ max-width:900px;
+ text-align:left;
+ padding:20px;
+ margin:00px auto
+}

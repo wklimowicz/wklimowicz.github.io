@@ -1,0 +1,120 @@
+/*-- scss:defaults --*/
+
+// copied from https://github.com/hugo-apero/hugo-apero/blob/1aba7d9a4bf3729b5ba67d037bdfb3116cf3f907/assets/theme/forest.scss#L3-L21
+// set your custom colors here
+$siteBgColorCustom: #FFFFFF;
+$sidebarBgColorCustom: #f9f9f9;
+$textColorCustom: #000000;
+$sidebarTextColorCustom: #212121;
+$headlineColorCustom: #000000;
+$headingColorCustom: #000000;
+$bodyLinkColorCustom: #4682B4;
+$navLinkColorCustom: #000000;
+$sidebarLinkColorCustom: #212121;
+$footerTextColorCustom: #666666;
+$buttonTextColorCustom: #FFFFFF;
+$buttonHoverTextColorCustom: #FFFFFF;
+$buttonBgColorCustom: #212121;
+$buttonHoverBgColorCustom: #000000;
+$borderColorCustom: #666666;
+
+// Stolen from https://github.com/simonpcouch/website/blob/048d660af3838422166b85a33f352b95e4aad349/assets/simon-light.scss
+// Theme colors
+$primary: $siteBgColorCustom;
+$secondary: $textColorCustom;
+
+// Quarto colors
+$body-bg: $siteBgColorCustom;
+$body-color: $textColorCustom;
+$link-color: $bodyLinkColorCustom;
+$input-bg: $buttonTextColorCustom;
+$popover-bg: $buttonTextColorCustom;
+$navbar-bg: $siteBgColorCustom;
+$navbar-fg: $navLinkColorCustom;
+$code-block-bg: $buttonTextColorCustom;
+
+body.headroom-disable .navbar {
+  position: static !important;
+  transform: none !important;
+  transition: none !important;
+}
+
+/* Make sure the navbar behaves like regular content */
+.navbar{
+    position: static !important; /* Override any sticky positioning */
+    top: auto; /* Reset the top property */
+    z-index: 1; /* Adjust the z-index if needed */
+}
+
+
+
+code {
+  color: $bodyLinkColorCustom !important;
+  background-color: #FFFFFF !important;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+
+// Main font
+body {
+  font-family: Lato !important;
+  color: $body-color
+}
+
+// Play around with this at some point
+// .navbar{
+//   border-bottom: 1px solid #4682B4 !important;
+// }
+// .navbar-title {
+//   text-decoration: underline !important;
+//   text-decoration-color: #CC5500 !important;
+// }
+
+h1 {
+  padding-bottom: 0.5em;
+  border-bottom: 1px solid lightgrey;
+  margin-top: 0em;
+  margin-bottom: 1em;
+}
+
+// h2 {
+//   padding-bottom: 0.3em;
+//   // border-bottom: 1px solid lightgrey;
+//   margin-top: 2em;
+//   margin-bottom: 1em;
+// }
+
+// Custom links on about pages that show up below text on mobile
+.custom-link-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  a {
+    display: inline-block;
+    padding: 5px 10px;
+    margin: 5px;
+    border: 1px solid #333;
+    border-radius: 4px;
+    color: #333;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    &:hover {
+      background-color: #333;
+      color: #fff;
+    }
+  }
+}
+
+
+// Fix the header to be static, and fix padding
+.fixed-top {
+  position: static !important;
+}
+body.nav-fixed {
+  padding-top: 0px !important;
+}
+element.style {
+  padding-top: 0px !important;
+}
+

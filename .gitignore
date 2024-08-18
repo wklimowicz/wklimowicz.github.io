@@ -1,0 +1,19 @@
+/.quarto/
+/_site/
+/site_libs/
+
+# Not sure whether to ignore or not
+/_freeze/
+
+# Partway knitted files
+*.knit.md
+
+*_cache/
+*_files/
+
+/research/
+/posts/
+
+
+# _assets/*
+# _css/*
