@@ -8,7 +8,7 @@ project:
 website:
   title: "Wojciech Klimowicz"
   site-url: https://wklimowicz.github.io
-  description: "Personal website for Wojciech Klimowicz"
+  description: "Personal website, mostly about economics and coding"
   search: false
   draft-mode: unlinked
   repo-url: "https://github.com/wklimowicz/wklimowicz.github.io"
