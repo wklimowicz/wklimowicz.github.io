@@ -1,7 +1,8 @@
 project:
   type: website
   render:
-    - "**/*.qmd" # Only qmd
+    - "**/*.qmd" # Posts
+    - "!research/index.qmd" # TODO: when there's anything
 
 website:
   title: "Wojciech Klimowicz"
