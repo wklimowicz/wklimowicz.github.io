@@ -4,9 +4,10 @@ about:
   template: trestles
 ---
 
-I'm an MRes Student studying Economics at UCL, and an Economist at the
-Department for Education (DfE). My research is in Labour and Education Economics, and
-at the DfE I work on school teacher analysis.
+I'm an MRes Student studying Economics at UCL, and an economist at the
+Department for Education. My research interests are in labour and education
+economics, and in the Department I work on school teacher analysis and data
+engineering.
 
 ::: {.custom-link-div}
 

@@ -11,13 +11,19 @@ freeze: auto
 date-format: long
 published-title: "" # No "Published:"
 toc: false
-highlight-style: a11y
 page-layout: article
 
-# SVG charts
+highlight-style: a11y
+
+# Figures in svg
 dev: svglite
 fig-format: svg
 
 # Add if necessary
 # csl: the-quarterly-journal-of-economics.csl
 # reference-location: document # or margin
+
+# Figure this out when cross referencing, otherwise it has "Listing"
+# crossref:
+#   lst-prefix: ""
+#   lst-title: ""

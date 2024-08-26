@@ -1,14 +1,16 @@
 project:
   type: website
   render:
-    - "!posts/**/*.qmd"
+    - "**/*.qmd" # Only qmd
 
 website:
   title: "Wojciech Klimowicz"
-  # site-url: wklimowicz.github.io
+  site-url: https://wklimowicz.github.io
   description: "Personal website for Wojciech Klimowicz"
   search: false
-  draft-mode: gone
+  draft-mode: unlinked
+  repo-url: "https://github.com/wklimowicz/wklimowicz.github.io"
+  repo-branch: master
   # favicon: TODO:
   navbar:
     pinned: true

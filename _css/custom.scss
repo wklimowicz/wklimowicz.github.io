@@ -48,18 +48,34 @@ body.headroom-disable .navbar {
 
 
 
-code {
-  color: $bodyLinkColorCustom !important;
-  background-color: #FFFFFF !important;
-}
+// code {
+//   color: $bodyLinkColorCustom !important;
+//   background-color: #FFFFFF !important;
+// }
 
+// Lato for text
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+
+// Roboto Mono for Code
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap');
 
 // Main font
 body {
   font-family: Lato !important;
   color: $body-color
 }
+
+// Code font
+code.sourceCode {
+  font-family: "Roboto Mono", monospace !important;
+}
+
+// Adjust captions on figures to be centered, rather than left
+figcaption {
+  margin: auto;
+  text-align: center;
+}
+
 
 // Play around with this at some point
 // .navbar{

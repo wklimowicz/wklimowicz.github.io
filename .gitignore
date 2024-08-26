@@ -1,17 +1,19 @@
+# Ignore by default
 /.quarto/
 /_site/
 /site_libs/
 
-# Not sure whether to ignore or not
+# Ignore for now, unignore if making github actions version.
 /_freeze/
 
-# Partway knitted files
+# Partway knitted files, caches
 *.knit.md
-
 *_cache/
 *_files/
+*lock*
 
 /research/
 
-# _assets/*
-# _css/*
+/drafts/
+README.md
+TODO.md
