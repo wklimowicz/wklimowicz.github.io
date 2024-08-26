@@ -98,7 +98,9 @@ cpi_level |>
   theme_minimal2()
 ```
 
-Zooming in on the period after January 2020, inflation jumps up in early 2021. CPI inflation peaked in October 2022 at 11.1%, which is the point at which the 12 month change was steepest:
+Zooming in on the period after January 2020, inflation jumps up in early 2021.
+CPI inflation peaked in October 2022 at 11.1%, which is the point at which the
+12 month change was steepest:
 
 
 ```{r}
