@@ -335,9 +335,9 @@ microdata](https://www.ons.gov.uk/economy/inflationandpriceindices/datasets/cons
 so you can see how much the prices of specific goods have gone up.
 
 On a positive note, the bank had been doing very well since it was made
-independent in 1998 to January 2020. It hit 2% almost perfectly over that
-period, with a cumulative 0.4% difference to target, though slightly
-undershooting in the 2000's and overshooting in 2010's.
+independent in 1998. It hit 2% almost perfectly up to January 2020, with a
+cumulative 0.4% difference to target, though slightly undershooting in the
+2000's and overshooting in 2010's.
 
 ```{r}
 #| code-summary: "Plot"

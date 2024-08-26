@@ -2,6 +2,8 @@
 title: "Software"
 ---
 
+<!-- TODO: make this YAML based with nice display -->
+
 I've created a few R packages for working with UK labour market datasets. All of them take the source data and compile into a single R data frame, so that it's possible to do time series analysis out of the box.
 
 * ONS Labour Force Survey (LFS) -- [tidylfs](https://wklimowicz.github.io/tidylfs/)
