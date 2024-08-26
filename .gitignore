@@ -9,7 +9,8 @@
 # Partway knitted files, caches
 *.knit.md
 *_cache/
-*_files/
+*_files*
+!/_files/
 *lock*
 
 /research/
