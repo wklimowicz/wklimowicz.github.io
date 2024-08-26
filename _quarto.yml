@@ -3,7 +3,7 @@ project:
   render:
     - "**/*.qmd" # Posts
     - "!research/index.qmd" # TODO: when there's anything
-    - "!drafts/*"
+    - "!drafts/**/*"
 
 website:
   title: "Wojciech Klimowicz"
