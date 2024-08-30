@@ -36,11 +36,9 @@ format:
       - _css/post-listing-template.ejs
       - _css/post-listing.css
       - _css/custom.scss
-      - _css/footer.scss
-    include-after-body:
-      text: |
-        <footer class="footer">
-        © 2024-2024 Wojciech Klimowicz.
-        <!-- <a href="https://creativecommons.org/licenses/by/3.0/">Some Rights Reserved</a> -->
-        Website built with Quarto.
-        </footer>
+      # - _css/footer.scss
+    # include-after-body:
+    #   text: |
+    #     <footer class="footer">
+    #     Built with Quarto.
+    #     </footer>

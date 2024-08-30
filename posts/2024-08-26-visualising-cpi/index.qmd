@@ -5,11 +5,11 @@ draft: false
 knitr:
   opts_chunk:
       # eval: true
-      echo: true
+      echo: false
       warning: false
       message: false
       comment:  # removes ## from output
-      code-fold: true
+      code-fold: false
       out-width: "100%"
 code-tools:
   source: repo
@@ -429,8 +429,8 @@ plot_data |>
   geom_vline(aes(xintercept = ymd(end_date)), linetype = "dotted") +
   annotate(
     "text",
-    x = date("2010-09-01"),
-    y = 96,
+    x = date("2015-09-01"),
+    y = 80,
     label = paste0(
       "Annual Average \n since ",
       year(start_date),

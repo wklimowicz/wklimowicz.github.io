@@ -1,0 +1,14 @@
+- title: "tidylfs"
+  description: |
+    **ONS Labour Force Survey**. Works for quarterly data from 1992, or the APS from 2004. Stiches together individual files into one R data.frame, and adds descriptions for occupation, industry. Quality of life improvements like picking the correct weight variable from each quarterly dataset and turning it into a single column.
+  github: https://github.com/wklimowicz/tidylfs/
+  website: https://wklimowicz.github.io/tidylfs/
+- title: "tidyusoc"
+  description: |
+    **Understanding Society/UK Household Longitudinal Study (UKHLS/BHPS)**. Works on the entire dataset going back to wave 1 of the BHPS. Joins waves together to create a single file, one per category (`indresp`, `youth`, etc.).
+  github: https://github.com/wklimowicz/tidyusoc/
+  website: https://wklimowicz.github.io/tidyusoc/
+- title: "tidyashe"
+  description: |
+    **ONS Annual Survey of Hours and Earnings**. <i class="bi bi-exclamation-square"></i> Experimental. Works for files as they are in DfE, but may not work elsewhere. Adds descriptions to occupation and industry.
+  github: https://github.com/wklimowicz/tidyashe/

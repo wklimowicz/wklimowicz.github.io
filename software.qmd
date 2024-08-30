@@ -2,13 +2,42 @@
 title: "Software"
 ---
 
-<!-- TODO: make this YAML based with nice display -->
-
 I've created a few R packages for working with UK labour market datasets. All of them take the source data and compile into a single R data frame, so that it's possible to do time series analysis out of the box.
 
-* ONS Labour Force Survey (LFS) -- [tidylfs](https://wklimowicz.github.io/tidylfs/)
+```{r}
+#| label: "software"
+#| id: "software"
+#| output: asis
+#| echo: false
 
-* ONS Annual Survey of Hours and Earnings (ASHE) -- [tidyashe](https://github.com/wklimowicz/tidyashe)
+library(yaml)
+library(htmltools)
+library(glue)
 
-* Understanding Society/UK Household Longitudinal Study (UKHLS/BHPS) -- [tidyusoc](https://wklimowicz.github.io/tidyusoc/)
+button <- function(url, str, icon) {
+  icon_base <- substr(icon, 1, 2)
+  glue('<a href="{url}" target="_blank" rel="noopener noreferrer"> <i class="{icon_base} {icon}" aria-label="{str}"> </i> {str} </a>')
+}
+
+yaml_data <- yaml.load_file("software.yaml")
+
+for (data in yaml_data) {
+  cat(sprintf("## `%s` {#%s}\n\n", data$title, data$title))
+  cat(data$description, "\n\n")
+
+  buttons <- list()
+  if (!is.null(data$github)) {
+    buttons <- c(buttons, button(data$github, "Github", "bi-github"))
+  }
+  if (!is.null(data$website)) {
+    buttons <- c(buttons, button(data$website, "Website", "bi-info-circle"))
+  }
+  if (!is.null(data$package)) {
+    buttons <- c(buttons, button(data$package, "Package", "bi-box-seam"))
+  }
+  cat('<div class="custom-link-div" style="justify-content: flex-start;">')
+  cat(paste(buttons, collapse = " "), "\n\n")
+  cat('</div>')
+}
+```
 
