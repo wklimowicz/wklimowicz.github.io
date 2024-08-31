@@ -2,7 +2,7 @@
 title: "Software"
 ---
 
-I've created a few R packages for working with UK labour market datasets. All of them take the source data and compile into a single R data frame, so that it's possible to do time series analysis out of the box.
+I've created a few R packages for working with UK labour market datasets. All of them take the source data and compile into a single R data frame where each variable is a column, so that it's possible to do time series analysis out of the box. In short, they turn each dataset into [tidy data](https://vita.had.co.nz/papers/tidy-data.pdf).
 
 ```{r}
 #| label: "software"
