@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss  xmlns:atom="http://www.w3.org/2005/Atom" 
+      xmlns:media="http://search.yahoo.com/mrss/" 
+      xmlns:content="http://purl.org/rss/1.0/modules/content/" 
+      xmlns:dc="http://purl.org/dc/elements/1.1/" 
+      version="2.0">
+<channel>
+<title>Wojciech Klimowicz</title>
+<link>https://wklimowicz.github.io/blog.html</link>
+<atom:link href="https://wklimowicz.github.io/blog.xml" rel="self" type="application/rss+xml"/>
+<description>Personal website, mostly about economics and coding</description>
+<generator>quarto-99.9.9</generator>
+<lastBuildDate>Sun, 25 Aug 2024 23:00:00 GMT</lastBuildDate>
+<item>
+  <title>Inflation is Down, but the Price Level is 13% Higher</title>
+  <link>https://wklimowicz.github.io/posts/2024-08-26-visualising-cpi/</link>
+  <description><![CDATA[ 
+
+
+
+
+<p>Inflation is the first derivative of the price level. This causes confusion because a fall in inflation isn’t the same thing as a fall in prices<sup>1</sup>. The surge in inflation in 2021 has made goods and services more expensive than before COVID. It has also made them more expensive than they would have been if the Bank of England (BoE) target was hit, which is what this post is about.</p>
+<div class="no-row-height column-margin column-container"><div id="fn1"><p><sup>1</sup>&nbsp;<a href="https://yougov.co.uk/politics/articles/49229-how-well-do-britons-understand-inflation">Three in ten Britons think this means that prices are falling.</a></p></div></div><p>Here are some plots to help visualise inflation and the price level in the past few years. Start off with how the price level has looked since the 90’s:</p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://wklimowicz.github.io/posts/2024-08-26-visualising-cpi/index_files/figure-html/unnamed-chunk-2-1.svg" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption>CPI back to the 1988</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Zooming in on the period after January 2020, inflation jumps up in early 2021. CPI inflation peaked in October 2022 at 11.1%, which is the point at which the 12 month change was steepest:</p>
+<div>
+
+</div>
+<div class="cell column-page quarto-layout-panel" data-layout-ncol="2">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://wklimowicz.github.io/posts/2024-08-26-visualising-cpi/index_files/figure-html/unnamed-chunk-3-1.svg" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption>CPI Growth 2021 - 2024</figcaption>
+</figure>
+</div>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://wklimowicz.github.io/posts/2024-08-26-visualising-cpi/index_files/figure-html/unnamed-chunk-3-2.svg" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption>CPI Level 2021 - 2024</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<p>Now, we can draw a 2% trend line from January 2020 (which factors in the lower inflation over 2020), to see where the target would be. Average inflation has been ~4.8%, which is approximately a 3% overshoot to the 2% target, which over 4.5 years gets you to 13%:</p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://wklimowicz.github.io/posts/2024-08-26-visualising-cpi/index_files/figure-html/unnamed-chunk-4-1.svg" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption>CPI vs Target</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Doing the calculation properly, if the BoE 2% target was hit since the pandemic begun, the price level would have been 9.3% higher than January 2020. It is currently 23.7% higher. Taking the ratio <img src="https://latex.codecogs.com/png.latex?%5Cfrac%7B123.7%5C%25%7D%7B109.3%5C%25%7D"> equals the 13.1% “excess inflation” compared to meeting the inflation target throughout.</p>
+<p>There are good reasons for this permanent increase, both the initial surge, and the fact the Bank isn’t trying to create deflation to get back on the trend. The target is asymmetric, and trying to lower prices by 13% using interest rates would likely result in a large increase in unemployment.</p>
+<p>A 13% overshoot also doesn’t imply we are 13% poorer. Nominal wage growth has been higher since 2020, so only part of this decline is real. <a href="https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/earningsandworkinghours/timeseries/kab9/lms">Average earnings</a> have increased by 20% between 2023 and 2020, which is approximately the same as CPI inflation, although there is huge heterogeneity here – not everyone’s income has kept pace, and inflation doesn’t affect all people equally. As it turns out, the ONS also <a href="https://www.ons.gov.uk/economy/inflationandpriceindices/datasets/consumerpriceindicescpiandretailpricesindexrpiitemindicesandpricequotes">publishes CPI microdata</a>, so you can see how much the prices of specific goods have gone up.</p>
+<p>On a positive note, the bank had been doing very well since it was made independent in 1998. It hit 2% almost perfectly up to January 2020, with a cumulative 0.4% difference to target, though slightly undershooting in the 2000’s and overshooting in 2010’s.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://wklimowicz.github.io/posts/2024-08-26-visualising-cpi/index_files/figure-html/unnamed-chunk-5-1.svg" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption>CPI since BoE Independence to January 2020</figcaption>
+</figure>
+</div>
+</div>
+</div>
+
+
+
+
+ ]]></description>
+  <guid>https://wklimowicz.github.io/posts/2024-08-26-visualising-cpi/</guid>
+  <pubDate>Sun, 25 Aug 2024 23:00:00 GMT</pubDate>
+</item>
+</channel>
+</rss>

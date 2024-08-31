@@ -1,0 +1,51 @@
+[
+  {
+    "objectID": "posts/2024-08-26-visualising-cpi/index.html",
+    "href": "posts/2024-08-26-visualising-cpi/index.html",
+    "title": "Inflation is Down, but the Price Level is 13% Higher",
+    "section": "",
+    "text": "Inflation is the first derivative of the price level. This causes confusion because a fall in inflation isn’t the same thing as a fall in prices1. The surge in inflation in 2021 has made goods and services more expensive than before COVID. It has also made them more expensive than they would have been if the Bank of England (BoE) target was hit, which is what this post is about.\n1 Three in ten Britons think this means that prices are falling.Here are some plots to help visualise inflation and the price level in the past few years. Start off with how the price level has looked since the 90’s:\n\n\n\n\n\nCPI back to the 1988\n\n\n\n\nZooming in on the period after January 2020, inflation jumps up in early 2021. CPI inflation peaked in October 2022 at 11.1%, which is the point at which the 12 month change was steepest:\n\n\n\n\n\n\n\n\n\nCPI Growth 2021 - 2024\n\n\n\n\n\n\n\nCPI Level 2021 - 2024\n\n\n\n\n\nNow, we can draw a 2% trend line from January 2020 (which factors in the lower inflation over 2020), to see where the target would be. Average inflation has been ~4.8%, which is approximately a 3% overshoot to the 2% target, which over 4.5 years gets you to 13%:\n\n\n\n\n\nCPI vs Target\n\n\n\n\nDoing the calculation properly, if the BoE 2% target was hit since the pandemic begun, the price level would have been 9.3% higher than January 2020. It is currently 23.7% higher. Taking the ratio \\(\\frac{123.7\\%}{109.3\\%}\\) equals the 13.1% “excess inflation” compared to meeting the inflation target throughout.\nThere are good reasons for this permanent increase, both the initial surge, and the fact the Bank isn’t trying to create deflation to get back on the trend. The target is asymmetric, and trying to lower prices by 13% using interest rates would likely result in a large increase in unemployment.\nA 13% overshoot also doesn’t imply we are 13% poorer. Nominal wage growth has been higher since 2020, so only part of this decline is real. Average earnings have increased by 20% between 2023 and 2020, which is approximately the same as CPI inflation, although there is huge heterogeneity here – not everyone’s income has kept pace, and inflation doesn’t affect all people equally. As it turns out, the ONS also publishes CPI microdata, so you can see how much the prices of specific goods have gone up.\nOn a positive note, the bank had been doing very well since it was made independent in 1998. It hit 2% almost perfectly up to January 2020, with a cumulative 0.4% difference to target, though slightly undershooting in the 2000’s and overshooting in 2010’s.\n\n\n\n\n\nCPI since BoE Independence to January 2020"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Wojciech Klimowicz",
+    "section": "",
+    "text": "I’m an MRes Economics Student at UCL, and an economist at the Department for Education. My research interests are in labour and education economics, and at DfE I work on school teacher analysis and data engineering.\n\n GitHub  LinkedIn"
+  },
+  {
+    "objectID": "blog.html",
+    "href": "blog.html",
+    "title": "Blog",
+    "section": "",
+    "text": "2024\n              \n        \n                \n                  \n                    Inflation is Down, but the Price Level is 13% Higher\n                    August 26\n                  \n                \n        \n              \n            \n        \n\n\n\n\nNo matching items\n\n\n\n RSS"
+  },
+  {
+    "objectID": "software.html",
+    "href": "software.html",
+    "title": "Software",
+    "section": "",
+    "text": "I’ve created a few R packages for working with UK labour market datasets. All of them take the source data and compile into a single R data frame where each variable is a column, so that it’s possible to do time series analysis out of the box. In short, they turn each dataset into tidy data."
+  },
+  {
+    "objectID": "software.html#tidylfs",
+    "href": "software.html#tidylfs",
+    "title": "Software",
+    "section": "tidylfs",
+    "text": "tidylfs\nONS Labour Force Survey. Works for quarterly data from 1992, or the APS from 2004. Stiches together individual files into one R data.frame, and adds descriptions for occupation, industry. Quality of life improvements like picking the correct weight variable from each quarterly dataset and turning it into a single column.\n\n   Github     Website"
+  },
+  {
+    "objectID": "software.html#tidyusoc",
+    "href": "software.html#tidyusoc",
+    "title": "Software",
+    "section": "tidyusoc",
+    "text": "tidyusoc\nUnderstanding Society/UK Household Longitudinal Study (UKHLS/BHPS). Works on the entire dataset going back to wave 1 of the BHPS. Joins waves together to create a single file, one per category (indresp, youth, etc.).\n\n   Github     Website"
+  },
+  {
+    "objectID": "software.html#tidyashe",
+    "href": "software.html#tidyashe",
+    "title": "Software",
+    "section": "tidyashe",
+    "text": "tidyashe\nONS Annual Survey of Hours and Earnings.  Experimental. Works for files as they are in DfE, but may not work elsewhere. Adds descriptions to occupation and industry.\n\n   Github"
+  }
+]
