@@ -16,7 +16,7 @@ website:
   # favicon: TODO:
   navbar:
     pinned: true
-    # logo: _files/julia-dots.svg?
+    # logo: _files/julia-dots.svg
     tools:
     - icon: github
       href: https://www.github.com/wklimowicz
