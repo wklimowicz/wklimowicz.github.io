@@ -33,20 +33,8 @@ $navbar-bg: $siteBgColorCustom;
 $navbar-fg: $navLinkColorCustom;
 $code-block-bg: $buttonTextColorCustom;
 
-body.headroom-disable .navbar {
-  position: static !important;
-  transform: none !important;
-  transition: none !important;
-}
-
-/* Make sure the navbar behaves like regular content */
-.navbar{
-    position: static !important; /* Override any sticky positioning */
-    top: auto; /* Reset the top property */
-    z-index: 1; /* Adjust the z-index if needed */
-}
-
 .navbar-title {
+  font-size: 20px;
   text-decoration:underline;
   text-underline-offset: 5px;
   text-decoration-color: $bodyLinkColorCustom;
@@ -57,7 +45,7 @@ body.headroom-disable .navbar {
 }
 
 .nav-item {
-  font-family: Source Code Pro;
+  font-family: Source Code Pro, monospace;
   // font-family: Roboto Mono;
 }
 
@@ -150,4 +138,3 @@ body.nav-fixed {
 element.style {
   padding-top: 0px !important;
 }
-
