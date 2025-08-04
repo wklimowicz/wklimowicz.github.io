@@ -1,5 +1,5 @@
 ---
-image: _files/wojtek.jpg
+image: _files/wojtek.webp
 about:
   template: trestles
 ---
