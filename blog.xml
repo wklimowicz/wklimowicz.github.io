@@ -10,7 +10,464 @@
 <atom:link href="https://wklimowicz.github.io/blog.xml" rel="self" type="application/rss+xml"/>
 <description>Personal website, mostly about economics and coding</description>
 <generator>quarto-99.9.9</generator>
-<lastBuildDate>Sun, 25 Aug 2024 23:00:00 GMT</lastBuildDate>
+<lastBuildDate>Sat, 09 Aug 2025 23:00:00 GMT</lastBuildDate>
+<item>
+  <title>Yazi as a git difftool for Images</title>
+  <link>https://wklimowicz.github.io/posts/2025-08-10-yazi-as-git-difftool/</link>
+  <description><![CDATA[ 
+
+
+
+
+<div class="quarto-video"><video id="video_shortcode_videojs_video1" class="video-js vjs-default-skin vjs-fluid" controls="" preload="auto" data-setup="{}" title="A demo of using yazi to view an image diff."><source src="https://raw.githubusercontent.com/wklimowicz/assets/master/blog/yazi-diff-demo.mp4"></video></div>
+<section id="why" class="level2">
+<h2 class="anchored" data-anchor-id="why">Why?</h2>
+<p><a href="https://github.com/sxyazi/yazi">Yazi</a> is a terminal file manager and previewer, something like a modern remake of <a href="https://github.com/ranger/ranger">ranger</a>. It’s fast, easy to configure, has great support for images, and like most of the cool new terminal tools, its written in Rust. I spend a lot of time in the terminal, and also a lot of time comparing different versions of the same charts. This got me tinkering to see whether I can use Yazi as a diff tool for images in Git.</p>
+<p>If you’re wondering why I’m committing images (i.e.&nbsp;outputs) to Git, there are two reasons. One, it’s necessary when using GitHub with Overleaf for a LaTeX document, since all the images need to be present on Overleaf for the document to compile. Two, my analysis is often a pipeline from a live database, and outputs can change without any change in the code. This makes it important to be able to check whether <code>modified: plot.pdf</code> is just an update to the date metadata, or a genuine change in the results.</p>
+<p>Other tools exist which provide image diff’s in terminal, but I found them all a bit clunky. GitHub provides a rich diff for some image formats, but it doesn’t do it for PDFs. You also have to commit, push, and open <code>github.com</code>: this often involves leaving the terminal.</p>
+</section>
+<section id="setup" class="level2">
+<h2 class="anchored" data-anchor-id="setup">Setup</h2>
+<p>We’ll need:</p>
+<ul>
+<li>A recent (&gt;= 25.5.31) version of <a href="https://yazi-rs.github.io/docs/installation/">Yazi</a> which supports custom exit codes.</li>
+<li>Some terminal tools depending on which files we preview. Most importantly <code>poppler</code> for PDF and <code>resvg</code> for SVG: see the Yazi installation page for details.</li>
+<li>A terminal emulator with Yazi <a href="https://yazi-rs.github.io/docs/image-preview/">image display</a> support: I use kitty on Linux and Windows Terminal on Windows/WSL.</li>
+<li>Git.</li>
+</ul>
+<section id="yazi-config" class="level3">
+<h3 class="anchored" data-anchor-id="yazi-config">Yazi Config</h3>
+<p>Create a <code>~/.config/yazi/</code> folder if you haven’t got one, and create a <code>yazi.toml</code> file there. This isn’t strictly required, but makes the preview nicer.</p>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>~/.config/yazi/yazi.toml</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-filename="~/.config/yazi/yazi.toml" style="background: #f1f3f5;"><pre class="sourceCode toml code-with-copy"><code class="sourceCode toml"><span id="cb1-1"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">[mgr]</span></span>
+<span id="cb1-2"><span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">ratio</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">[</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">3</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">8</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">]</span> <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># [Parent, Current, Preview]: adjust to what works.</span></span>
+<span id="cb1-3"></span>
+<span id="cb1-4"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">[preview]</span></span>
+<span id="cb1-5"><span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">max_width</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2800</span> <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># I like to set width and height to fill up the entire preview pane.</span></span>
+<span id="cb1-6"><span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">max_height</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2800</span></span>
+<span id="cb1-7"><span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">image_quality</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">80</span> <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Tweak quality until you're happy with the speed/quality tradeoff.</span></span>
+<span id="cb1-8"><span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">image_delay</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span> <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Wait time in ms before attempting to render an image.</span></span></code></pre></div></div>
+</div>
+<p>The setup involves queuing up a new instance of yazi for each image, making <code>q</code> (quit) the “next image” key. We need another key which sends a non-zero exit code, which tells the difftool to quit altogether, which I’ve mapped to <code>Q</code>. Note this <a href="https://github.com/sxyazi/yazi/blob/shipped/yazi-config/preset/keymap-default.toml">overwrites</a> the default mapping which is <code>quit --no-cwd-file</code>.</p>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>~/.config/yazi/keymap.toml</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" data-filename="~/.config/yazi/keymap.toml" style="background: #f1f3f5;"><pre class="sourceCode toml code-with-copy"><code class="sourceCode toml"><span id="cb2-1"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">[[mgr.prepend_keymap]]</span></span>
+<span id="cb2-2"><span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">on</span>   <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Q"</span></span>
+<span id="cb2-3"><span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">run</span>  <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"quit --code=1"</span></span>
+<span id="cb2-4"><span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">desc</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Quit with non-zero exit code: git difftool exits completely."</span></span></code></pre></div></div>
+</div>
+</section>
+<section id="shell-script" class="level3">
+<h3 class="anchored" data-anchor-id="shell-script">Shell Script</h3>
+<p>The core is a shell script that creates the necessary setup for Yazi:</p>
+<ol type="1">
+<li>Find the files to diff.</li>
+<li>Create a temporary directory.</li>
+<li>Create symlinks to the relevant files, with <code>a_</code> and <code>b_</code> prefixes.</li>
+<li>Launch Yazi in that directory.</li>
+</ol>
+<p>Call this file <code>git-yazi-diff</code>, and put it anywhere on your PATH, for example <code>~/.local/bin/</code>. Remember to run <code>chmod +x git-yazi-diff</code> to give it execute permissions.</p>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>git-yazi-diff</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3" data-filename="git-yazi-diff" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">#!/usr/bin/env bash</span></span>
+<span id="cb3-2"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Flatten git-difftool's temp structure and preview the pair in Yazi.</span></span>
+<span id="cb3-3"><span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">set</span> <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">-euo</span> pipefail</span>
+<span id="cb3-4"></span>
+<span id="cb3-5"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Given a path that can be a file *or* the root dir that git-difftool hands</span></span>
+<span id="cb3-6"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># us in --dir-diff mode, return the first regular file it contains.</span></span>
+<span id="cb3-7"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">pick_file()</span> <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">{</span></span>
+<span id="cb3-8">    <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">local</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">p</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">$1</span></span>
+<span id="cb3-9">    <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">if</span> <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">[[</span> <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">-d</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">$p</span> <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">]];</span> <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">then</span> <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># dir-diff case</span></span>
+<span id="cb3-10">        <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Grab the first regular file, depth-first, ignoring .git/</span></span>
+<span id="cb3-11">        <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">find</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">$p</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"</span> <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">-type</span> f ! <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">-path</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'*/.git/*'</span> <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">|</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">head</span> <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">-n</span> 1</span>
+<span id="cb3-12">    <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">else</span> <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># plain file</span></span>
+<span id="cb3-13">        <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">echo</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">$p</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"</span></span>
+<span id="cb3-14">    <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">fi</span></span>
+<span id="cb3-15"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">}</span></span>
+<span id="cb3-16"></span>
+<span id="cb3-17"><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">left_path</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">$(</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">realpath</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">$(</span><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">pick_file</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">$1</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">)</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">)</span></span>
+<span id="cb3-18"><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">right_path</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">$(</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">realpath</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">$(</span><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">pick_file</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">$2</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">)</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">)</span></span>
+<span id="cb3-19"></span>
+<span id="cb3-20"><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">tmp</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">$(</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">mktemp</span> <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">-d</span> <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">-t</span> yazi-diff.XXXXXX<span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">)</span></span>
+<span id="cb3-21"><span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">trap</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'rm -rf "$tmp"'</span> EXIT INT TERM</span>
+<span id="cb3-22"></span>
+<span id="cb3-23"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">ln</span> <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">-s</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">$left_path</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"</span>  <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">$tmp</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">/a_</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">$(</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">basename</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">$left_path</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">)</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"</span></span>
+<span id="cb3-24"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">ln</span> <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">-s</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">$right_path</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">$tmp</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">/b_</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">$(</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">basename</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">$right_path</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">)</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"</span></span>
+<span id="cb3-25"></span>
+<span id="cb3-26"><span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">exec</span> yazi <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">$tmp</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"</span></span></code></pre></div></div>
+</div>
+</section>
+<section id="git-config" class="level3">
+<h3 class="anchored" data-anchor-id="git-config">Git Config</h3>
+<p>Now, all that’s left is registering this as a valid tool in your git config. I have mine in <code>~/.config/git/config</code>, but you might have yours in <code>~/.gitconfig</code>.</p>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>~/.config/git/config</strong></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4" data-filename="~/.config/git/config" style="background: #f1f3f5;"><pre class="sourceCode ini code-with-copy"><code class="sourceCode ini"><span id="cb4-1"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">[difftool "yazi"]</span></span>
+<span id="cb4-2"><span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">    cmd </span><span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;"> git-yazi-diff "$LOCAL" "$REMOTE"</span></span>
+<span id="cb4-3"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># The below is optional:</span></span>
+<span id="cb4-4"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">[diff]</span></span>
+<span id="cb4-5"><span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">    </span><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Set it as the default difftool</span></span>
+<span id="cb4-6"><span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">    tool </span><span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;"> yazi</span></span>
+<span id="cb4-7"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">[alias]</span></span>
+<span id="cb4-8"><span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">    </span><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Shortcut</span></span>
+<span id="cb4-9"><span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">    dft </span><span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;"> difftool</span></span></code></pre></div></div>
+</div>
+<p>That’s it: go into a directory where you have something that Yazi previews, and run <code>git difftool --tool=yazi .</code> or <code>git dft **/*pdf</code>. Use <code>j</code> or <code>k</code> to flip between images, <code>q</code> to go to the next image, and <code>Q</code> to exit. Yazi has a lot of <a href="https://yazi-rs.github.io/docs/resources/">custom previewers</a> for other filetypes that this pattern would work with. The setup also works for text, although for plain text there are tools like <a href="https://github.com/dandavison/delta/">delta</a> that are much better.</p>
+
+
+</section>
+</section>
+
+ ]]></description>
+  <guid>https://wklimowicz.github.io/posts/2025-08-10-yazi-as-git-difftool/</guid>
+  <pubDate>Sat, 09 Aug 2025 23:00:00 GMT</pubDate>
+</item>
 <item>
   <title>Inflation is Down, but the Price Level is 13% Higher</title>
   <link>https://wklimowicz.github.io/posts/2024-08-26-visualising-cpi/</link>

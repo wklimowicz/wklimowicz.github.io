@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2024-08-26">
+<meta name="dcterms.date" content="2025-08-10">
 
-<title>Inflation is Down, but the Price Level is 13% Higher – Wojciech Klimowicz</title>
+<title>Yazi as a git difftool for Images – Wojciech Klimowicz</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,6 +20,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -37,6 +72,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../../site_libs/bootstrap/bootstrap-94ee1c0b684ef79ba968951f5e5d0143.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-contrib/videojs/video.min.js"></script>
+<link href="../../site_libs/quarto-contrib/videojs/video-js.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "language": {
     "search-no-results-text": "No results",
@@ -53,39 +90,10 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 </head>
 
-<body class="nav-fixed quarto-light">
+<body class="nav-fixed fullcontent quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -123,14 +131,13 @@ window.Quarto = {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-    </div>
+    
 <!-- main -->
-<main class="content page-columns page-full" id="quarto-document-content">
+<main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title">Inflation is Down, but the Price Level is 13% Higher</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source" data-quarto-source-url="https://github.com/wklimowicz/wklimowicz.github.io/blob/master/posts/2024-08-26-visualising-cpi/index.qmd"><i class="bi"></i> Code</button></div></div>
+<h1 class="title">Yazi as a <code>git difftool</code> for Images</h1>
 </div>
 
 
@@ -141,7 +148,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading"></div>
     <div class="quarto-title-meta-contents">
-      <p class="date">August 26, 2024</p>
+      <p class="date">August 10, 2025</p>
     </div>
   </div>
   
@@ -153,67 +160,113 @@ window.Quarto = {
 </header>
 
 
-<p>Inflation is the first derivative of the price level. This causes confusion because a fall in inflation isn’t the same thing as a fall in prices<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>. The surge in inflation in 2021 has made goods and services more expensive than before COVID. It has also made them more expensive than they would have been if the Bank of England (BoE) target was hit, which is what this post is about.</p>
-<div class="no-row-height column-margin column-container"><div id="fn1"><p><sup>1</sup>&nbsp;<a href="https://yougov.co.uk/politics/articles/49229-how-well-do-britons-understand-inflation">Three in ten Britons think this means that prices are falling.</a></p></div></div><p>Here are some plots to help visualise inflation and the price level in the past few years. Start off with how the price level has looked since the 90’s:</p>
-<div class="cell">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-2-1.svg" class="img-fluid figure-img" style="width:100.0%"></p>
-<figcaption>CPI back to the 1988</figcaption>
-</figure>
+<div class="quarto-video"><video id="video_shortcode_videojs_video1" class="video-js vjs-default-skin vjs-fluid" controls="" preload="auto" data-setup="{}" title="A demo of using yazi to view an image diff."><source src="https://raw.githubusercontent.com/wklimowicz/assets/master/blog/yazi-diff-demo.mp4"></video></div>
+<section id="why" class="level2">
+<h2 class="anchored" data-anchor-id="why">Why?</h2>
+<p><a href="https://github.com/sxyazi/yazi">Yazi</a> is a terminal file manager and previewer, something like a modern remake of <a href="https://github.com/ranger/ranger">ranger</a>. It’s fast, easy to configure, has great support for images, and like most of the cool new terminal tools, its written in Rust. I spend a lot of time in the terminal, and also a lot of time comparing different versions of the same charts. This got me tinkering to see whether I can use Yazi as a diff tool for images in Git.</p>
+<p>If you’re wondering why I’m committing images (i.e.&nbsp;outputs) to Git, there are two reasons. One, it’s necessary when using GitHub with Overleaf for a LaTeX document, since all the images need to be present on Overleaf for the document to compile. Two, my analysis is often a pipeline from a live database, and outputs can change without any change in the code. This makes it important to be able to check whether <code>modified: plot.pdf</code> is just an update to the date metadata, or a genuine change in the results.</p>
+<p>Other tools exist which provide image diff’s in terminal, but I found them all a bit clunky. GitHub provides a rich diff for some image formats, but it doesn’t do it for PDFs. You also have to commit, push, and open <code>github.com</code>: this often involves leaving the terminal.</p>
+</section>
+<section id="setup" class="level2">
+<h2 class="anchored" data-anchor-id="setup">Setup</h2>
+<p>We’ll need:</p>
+<ul>
+<li>A recent (&gt;= 25.5.31) version of <a href="https://yazi-rs.github.io/docs/installation/">Yazi</a> which supports custom exit codes.</li>
+<li>Some terminal tools depending on which files we preview. Most importantly <code>poppler</code> for PDF and <code>resvg</code> for SVG: see the Yazi installation page for details.</li>
+<li>A terminal emulator with Yazi <a href="https://yazi-rs.github.io/docs/image-preview/">image display</a> support: I use kitty on Linux and Windows Terminal on Windows/WSL.</li>
+<li>Git.</li>
+</ul>
+<section id="yazi-config" class="level3">
+<h3 class="anchored" data-anchor-id="yazi-config">Yazi Config</h3>
+<p>Create a <code>~/.config/yazi/</code> folder if you haven’t got one, and create a <code>yazi.toml</code> file there. This isn’t strictly required, but makes the preview nicer.</p>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>~/.config/yazi/yazi.toml</strong></pre>
 </div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" data-filename="~/.config/yazi/yazi.toml"><pre class="sourceCode toml code-with-copy"><code class="sourceCode toml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">[mgr]</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="dt">ratio</span> <span class="op">=</span> <span class="op">[</span><span class="dv">2</span><span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="dv">8</span><span class="op">]</span> <span class="co"># [Parent, Current, Preview]: adjust to what works.</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="kw">[preview]</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="dt">max_width</span> <span class="op">=</span> <span class="dv">2800</span> <span class="co"># I like to set width and height to fill up the entire preview pane.</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="dt">max_height</span> <span class="op">=</span> <span class="dv">2800</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="dt">image_quality</span> <span class="op">=</span> <span class="dv">80</span> <span class="co"># Tweak quality until you're happy with the speed/quality tradeoff.</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="dt">image_delay</span> <span class="op">=</span> <span class="dv">0</span> <span class="co"># Wait time in ms before attempting to render an image.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
+<p>The setup involves queuing up a new instance of yazi for each image, making <code>q</code> (quit) the “next image” key. We need another key which sends a non-zero exit code, which tells the difftool to quit altogether, which I’ve mapped to <code>Q</code>. Note this <a href="https://github.com/sxyazi/yazi/blob/shipped/yazi-config/preset/keymap-default.toml">overwrites</a> the default mapping which is <code>quit --no-cwd-file</code>.</p>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>~/.config/yazi/keymap.toml</strong></pre>
 </div>
-<p>Zooming in on the period after January 2020, inflation jumps up in early 2021. CPI inflation peaked in October 2022 at 11.1%, which is the point at which the 12 month change was steepest:</p>
-<div class="cell column-page quarto-layout-panel" data-layout-ncol="2">
-<div class="quarto-layout-row">
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-3-1.svg" class="img-fluid figure-img" style="width:100.0%"></p>
-<figcaption>CPI Growth 2021 - 2024</figcaption>
-</figure>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" data-filename="~/.config/yazi/keymap.toml"><pre class="sourceCode toml code-with-copy"><code class="sourceCode toml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">[[mgr.prepend_keymap]]</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="dt">on</span>   <span class="op">=</span> <span class="st">"Q"</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="dt">run</span>  <span class="op">=</span> <span class="st">"quit --code=1"</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="dt">desc</span> <span class="op">=</span> <span class="st">"Quit with non-zero exit code: git difftool exits completely."</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
+</section>
+<section id="shell-script" class="level3">
+<h3 class="anchored" data-anchor-id="shell-script">Shell Script</h3>
+<p>The core is a shell script that creates the necessary setup for Yazi:</p>
+<ol type="1">
+<li>Find the files to diff.</li>
+<li>Create a temporary directory.</li>
+<li>Create symlinks to the relevant files, with <code>a_</code> and <code>b_</code> prefixes.</li>
+<li>Launch Yazi in that directory.</li>
+</ol>
+<p>Call this file <code>git-yazi-diff</code>, and put it anywhere on your PATH, for example <code>~/.local/bin/</code>. Remember to run <code>chmod +x git-yazi-diff</code> to give it execute permissions.</p>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>git-yazi-diff</strong></pre>
 </div>
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-3-2.svg" class="img-fluid figure-img" style="width:100.0%"></p>
-<figcaption>CPI Level 2021 - 2024</figcaption>
-</figure>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3" data-filename="git-yazi-diff"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#!/usr/bin/env bash</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Flatten git-difftool's temp structure and preview the pair in Yazi.</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="bu">set</span> <span class="at">-euo</span> pipefail</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Given a path that can be a file *or* the root dir that git-difftool hands</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co"># us in --dir-diff mode, return the first regular file it contains.</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="fu">pick_file()</span> <span class="kw">{</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">local</span> <span class="va">p</span><span class="op">=</span><span class="va">$1</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="kw">[[</span> <span class="ot">-d</span> <span class="va">$p</span> <span class="kw">]];</span> <span class="cf">then</span> <span class="co"># dir-diff case</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Grab the first regular file, depth-first, ignoring .git/</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>        <span class="fu">find</span> <span class="st">"</span><span class="va">$p</span><span class="st">"</span> <span class="at">-type</span> f ! <span class="at">-path</span> <span class="st">'*/.git/*'</span> <span class="kw">|</span> <span class="fu">head</span> <span class="at">-n</span> 1</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span> <span class="co"># plain file</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>        <span class="bu">echo</span> <span class="st">"</span><span class="va">$p</span><span class="st">"</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">fi</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="kw">}</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="va">left_path</span><span class="op">=</span><span class="va">$(</span><span class="fu">realpath</span> <span class="st">"</span><span class="va">$(</span><span class="ex">pick_file</span> <span class="st">"</span><span class="va">$1</span><span class="st">"</span><span class="va">)</span><span class="st">"</span><span class="va">)</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="va">right_path</span><span class="op">=</span><span class="va">$(</span><span class="fu">realpath</span> <span class="st">"</span><span class="va">$(</span><span class="ex">pick_file</span> <span class="st">"</span><span class="va">$2</span><span class="st">"</span><span class="va">)</span><span class="st">"</span><span class="va">)</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="va">tmp</span><span class="op">=</span><span class="va">$(</span><span class="fu">mktemp</span> <span class="at">-d</span> <span class="at">-t</span> yazi-diff.XXXXXX<span class="va">)</span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="bu">trap</span> <span class="st">'rm -rf "$tmp"'</span> EXIT INT TERM</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="fu">ln</span> <span class="at">-s</span> <span class="st">"</span><span class="va">$left_path</span><span class="st">"</span>  <span class="st">"</span><span class="va">$tmp</span><span class="st">/a_</span><span class="va">$(</span><span class="fu">basename</span> <span class="st">"</span><span class="va">$left_path</span><span class="st">"</span><span class="va">)</span><span class="st">"</span></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a><span class="fu">ln</span> <span class="at">-s</span> <span class="st">"</span><span class="va">$right_path</span><span class="st">"</span> <span class="st">"</span><span class="va">$tmp</span><span class="st">/b_</span><span class="va">$(</span><span class="fu">basename</span> <span class="st">"</span><span class="va">$right_path</span><span class="st">"</span><span class="va">)</span><span class="st">"</span></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a><span class="bu">exec</span> yazi <span class="st">"</span><span class="va">$tmp</span><span class="st">"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
+</section>
+<section id="git-config" class="level3">
+<h3 class="anchored" data-anchor-id="git-config">Git Config</h3>
+<p>Now, all that’s left is registering this as a valid tool in your git config. I have mine in <code>~/.config/git/config</code>, but you might have yours in <code>~/.gitconfig</code>.</p>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>~/.config/git/config</strong></pre>
 </div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4" data-filename="~/.config/git/config"><pre class="sourceCode ini code-with-copy"><code class="sourceCode ini"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">[difftool "yazi"]</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="dt">    cmd </span><span class="ot">=</span><span class="st"> git-yazi-diff "$LOCAL" "$REMOTE"</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># The below is optional:</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="kw">[diff]</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="dt">    </span><span class="co"># Set it as the default difftool</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="dt">    tool </span><span class="ot">=</span><span class="st"> yazi</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="kw">[alias]</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="dt">    </span><span class="co"># Shortcut</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="dt">    dft </span><span class="ot">=</span><span class="st"> difftool</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-</div>
-<p>Now, we can draw a 2% trend line from January 2020 (which factors in the lower inflation over 2020), to see where the target would be. Average inflation has been ~4.8%, which is approximately a 3% overshoot to the 2% target, which over 4.5 years gets you to 13%:</p>
-<div class="cell">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-4-1.svg" class="img-fluid figure-img" style="width:100.0%"></p>
-<figcaption>CPI vs Target</figcaption>
-</figure>
-</div>
-</div>
-</div>
-<p>Doing the calculation properly, if the BoE 2% target was hit since the pandemic begun, the price level would have been 9.3% higher than January 2020. It is currently 23.7% higher. Taking the ratio <span class="math inline">\(\frac{123.7\%}{109.3\%}\)</span> equals the 13.1% “excess inflation” compared to meeting the inflation target throughout.</p>
-<p>There are good reasons for this permanent increase, both the initial surge, and the fact the Bank isn’t trying to create deflation to get back on the trend. The target is asymmetric, and trying to lower prices by 13% using interest rates would likely result in a large increase in unemployment.</p>
-<p>A 13% overshoot also doesn’t imply we are 13% poorer. Nominal wage growth has been higher since 2020, so only part of this decline is real. <a href="https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/earningsandworkinghours/timeseries/kab9/lms">Average earnings</a> have increased by 20% between 2023 and 2020, which is approximately the same as CPI inflation, although there is huge heterogeneity here – not everyone’s income has kept pace, and inflation doesn’t affect all people equally. As it turns out, the ONS also <a href="https://www.ons.gov.uk/economy/inflationandpriceindices/datasets/consumerpriceindicescpiandretailpricesindexrpiitemindicesandpricequotes">publishes CPI microdata</a>, so you can see how much the prices of specific goods have gone up.</p>
-<p>On a positive note, the bank had been doing very well since it was made independent in 1998. It hit 2% almost perfectly up to January 2020, with a cumulative 0.4% difference to target, though slightly undershooting in the 2000’s and overshooting in 2010’s.</p>
-<div class="cell">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-5-1.svg" class="img-fluid figure-img" style="width:100.0%"></p>
-<figcaption>CPI since BoE Independence to January 2020</figcaption>
-</figure>
-</div>
-</div>
-</div>
+<p>That’s it: go into a directory where you have something that Yazi previews, and run <code>git difftool --tool=yazi .</code> or <code>git dft **/*pdf</code>. Use <code>j</code> or <code>k</code> to flip between images, <code>q</code> to go to the next image, and <code>Q</code> to exit. Yazi has a lot of <a href="https://yazi-rs.github.io/docs/resources/">custom previewers</a> for other filetypes that this pattern would work with. The setup also works for text, although for plain text there are tools like <a href="https://github.com/dandavison/delta/">delta</a> that are much better.</p>
 
 
-
+</section>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -285,57 +338,6 @@ window.Quarto = {
         container: window.document.getElementById('quarto-embedded-source-code-modal')
       });
       clipboardModal.on('success', onCopySuccess);
-    }
-    const viewSource = window.document.getElementById('quarto-view-source') ||
-                       window.document.getElementById('quarto-code-tools-source');
-    if (viewSource) {
-      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
-      viewSource.addEventListener("click", function(e) {
-        if (sourceUrl) {
-          // rstudio viewer pane
-          if (/\bcapabilities=\b/.test(window.location)) {
-            window.open(sourceUrl);
-          } else {
-            window.location.href = sourceUrl;
-          }
-        } else {
-          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
-          modal.show();
-        }
-        return false;
-      });
-    }
-    function toggleCodeHandler(show) {
-      return function(e) {
-        const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
-        for (let i=0; i<detailsSrc.length; i++) {
-          const details = detailsSrc[i].parentElement;
-          if (show) {
-            details.open = true;
-          } else {
-            details.removeAttribute("open");
-          }
-        }
-        const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
-        const fromCls = show ? "hidden" : "unhidden";
-        const toCls = show ? "unhidden" : "hidden";
-        for (let i=0; i<cellCodeDivs.length; i++) {
-          const codeDiv = cellCodeDivs[i];
-          if (codeDiv.classList.contains(fromCls)) {
-            codeDiv.classList.remove(fromCls);
-            codeDiv.classList.add(toCls);
-          } 
-        }
-        return false;
-      }
-    }
-    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
-    if (hideAllCode) {
-      hideAllCode.addEventListener("click", toggleCodeHandler(false));
-    }
-    const showAllCode = window.document.getElementById("quarto-show-all-code");
-    if (showAllCode) {
-      showAllCode.addEventListener("click", toggleCodeHandler(true));
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
@@ -651,6 +653,7 @@ window.Quarto = {
   });
   </script>
 </div> <!-- /content -->
+<script>videojs(video_shortcode_videojs_video1);</script>
 
 
 

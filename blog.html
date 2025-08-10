@@ -29,6 +29,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/clipboard/clipboard.min.js"></script>
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
@@ -36,7 +37,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-3aa970819e70fbc78806154e5a1fcd28.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-07b915d09b88bf1588a10bf9789efdeb.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-43916f0251dad5875b4c1014a78f0754.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "language": {
     "search-no-results-text": "No results",
@@ -96,7 +97,7 @@ const typesetMath = (el) => {
     var macros = [];
     for (var i = 0; i < mathElements.length; i++) {
       var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
         window.katex.render(texText.data, mathElements[i], {
           displayMode: mathElements[i].classList.contains('display'),
           throwOnError: false,
@@ -121,6 +122,8 @@ window.Quarto = {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
+    <a href="./index.html" class="navbar-brand navbar-brand-logo">
+    </a>
     <a class="navbar-brand" href="./index.html">
     <span class="navbar-title">Wojciech Klimowicz</span>
     </a>
@@ -178,12 +181,30 @@ window.Quarto = {
 <div class="posts">
 
             <div class="posts-group">
+              <div class="post-year">2025</div>
+              <ul class="posts-list">
+        
+                <li class="post-item">
+                  <a href="./posts/2025-08-10-yazi-as-git-difftool/index.html">
+                      <span class="post-title">
+                        Yazi as a <code>git difftool</code> for Images
+                      </span>
+                    <span class="post-day">August 10</span>
+                  </a>
+                </li>
+        
+              </ul>
+            </div>
+        
+            <div class="posts-group">
               <div class="post-year">2024</div>
               <ul class="posts-list">
         
                 <li class="post-item">
                   <a href="./posts/2024-08-26-visualising-cpi/index.html">
-                    <span class="post-title">Inflation is Down, but the Price Level is 13% Higher</span>
+                      <span class="post-title">
+                        Inflation is Down, but the Price Level is 13% Higher
+                      </span>
                     <span class="post-day">August 26</span>
                   </a>
                 </li>
