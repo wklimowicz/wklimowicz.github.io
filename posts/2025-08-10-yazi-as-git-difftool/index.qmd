@@ -1,0 +1,110 @@
+---
+title: Yazi as a `git difftool` for Images
+date: 2025-08-10
+draft: false
+reference-location: margin
+footnotes-hover: false
+---
+
+{{< video https://raw.githubusercontent.com/wklimowicz/assets/master/blog/yazi-diff-demo.mp4
+    title= "A demo of using yazi to view an image diff." >}}
+
+## Why?
+
+[Yazi](https://github.com/sxyazi/yazi) is a terminal file manager and previewer, something like a modern remake of [ranger](https://github.com/ranger/ranger). It's fast, easy to configure, has great support for images, and like most of the cool new terminal tools, its written in Rust. I spend a lot of time in the terminal, and also a lot of time comparing different versions of the same charts. This got me tinkering to see whether I can use Yazi as a diff tool for images in Git.
+
+If you're wondering why I'm committing images (i.e. outputs) to Git, there are two reasons. One, it's necessary when using GitHub with Overleaf for a LaTeX document, since all the images need to be present on Overleaf for the document to compile. Two, my analysis is often a pipeline from a live database, and outputs can change without any change in the code. This makes it important to be able to check whether `modified: plot.pdf` is just an update to the date metadata, or a genuine change in the results.
+
+Other tools exist which provide image diff's in terminal, but I found them all a bit clunky. GitHub provides a rich diff for some image formats, but it doesn't do it for PDFs. You also have to commit, push, and open `github.com`: this often involves leaving the terminal.
+
+## Setup
+
+We'll need:
+
+* A recent (>= 25.5.31) version of [Yazi](https://yazi-rs.github.io/docs/installation/) which supports custom exit codes.
+* Some terminal tools depending on which files we preview. Most importantly `poppler` for PDF and `resvg` for SVG: see the Yazi installation page for details.
+* A terminal emulator with Yazi [image display](https://yazi-rs.github.io/docs/image-preview/) support: I use kitty on Linux and Windows Terminal on Windows/WSL.
+* Git.
+
+
+### Yazi Config
+
+Create a `~/.config/yazi/` folder if you haven't got one, and create a `yazi.toml` file there. This isn't strictly required, but makes the preview nicer.
+
+```{.toml filename="~/.config/yazi/yazi.toml"}
+[mgr]
+ratio = [2, 3, 8] # [Parent, Current, Preview]: adjust to what works.
+
+[preview]
+max_width = 2800 # I like to set width and height to fill up the entire preview pane.
+max_height = 2800
+image_quality = 80 # Tweak quality until you're happy with the speed/quality tradeoff.
+image_delay = 0 # Wait time in ms before attempting to render an image.
+```
+
+The setup involves queuing up a new instance of yazi for each image, making `q` (quit) the "next image" key. We need another key which sends a non-zero exit code, which tells the difftool to quit altogether, which I've mapped to `Q`. Note this [overwrites](https://github.com/sxyazi/yazi/blob/shipped/yazi-config/preset/keymap-default.toml) the default mapping which is `quit --no-cwd-file`.
+
+```{.toml filename="~/.config/yazi/keymap.toml"}
+[[mgr.prepend_keymap]]
+on   = "Q"
+run  = "quit --code=1"
+desc = "Quit with non-zero exit code: git difftool exits completely."
+```
+
+### Shell Script
+
+The core is a shell script that creates the necessary setup for Yazi:
+
+1. Find the files to diff.
+2. Create a temporary directory.
+3. Create symlinks to the relevant files, with `a_` and `b_` prefixes.
+4. Launch Yazi in that directory.
+
+Call this file `git-yazi-diff`, and put it anywhere on your PATH, for example `~/.local/bin/`. Remember to run `chmod +x git-yazi-diff` to give it execute permissions.
+
+```{.bash filename="git-yazi-diff"}
+#!/usr/bin/env bash
+# Flatten git-difftool's temp structure and preview the pair in Yazi.
+set -euo pipefail
+
+# Given a path that can be a file *or* the root dir that git-difftool hands
+# us in --dir-diff mode, return the first regular file it contains.
+pick_file() {
+    local p=$1
+    if [[ -d $p ]]; then # dir-diff case
+        # Grab the first regular file, depth-first, ignoring .git/
+        find "$p" -type f ! -path '*/.git/*' | head -n 1
+    else # plain file
+        echo "$p"
+    fi
+}
+
+left_path=$(realpath "$(pick_file "$1")")
+right_path=$(realpath "$(pick_file "$2")")
+
+tmp=$(mktemp -d -t yazi-diff.XXXXXX)
+trap 'rm -rf "$tmp"' EXIT INT TERM
+
+ln -s "$left_path"  "$tmp/a_$(basename "$left_path")"
+ln -s "$right_path" "$tmp/b_$(basename "$right_path")"
+
+exec yazi "$tmp"
+```
+
+### Git Config
+
+Now, all that's left is registering this as a valid tool in your git config. I have mine in `~/.config/git/config`, but you might have yours in `~/.gitconfig`.
+
+```{.ini filename="~/.config/git/config"}
+[difftool "yazi"]
+    cmd = git-yazi-diff "$LOCAL" "$REMOTE"
+# The below is optional:
+[diff]
+    # Set it as the default difftool
+    tool = yazi
+[alias]
+    # Shortcut
+    dft = difftool
+```
+
+That's it: go into a directory where you have something that Yazi previews, and run `git difftool --tool=yazi .` or `git dft **/*pdf`. Use `j` or `k` to flip between images, `q` to go to the next image, and `Q` to exit. Yazi has a lot of [custom previewers](https://yazi-rs.github.io/docs/resources/) for other filetypes that this pattern would work with. The setup also works for text, although for plain text there are tools like [delta](https://github.com/dandavison/delta/) that are much better.
