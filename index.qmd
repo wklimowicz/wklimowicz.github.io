@@ -4,7 +4,7 @@ about:
   template: trestles
 ---
 
-I'm an MRes Economics Student at UCL, and an economist at the Department for
+I'm an MPhil student in Economics at UCL, and an economist at the Department for
 Education. My research interests are in labour and education economics, and at
 DfE I work on school teacher analysis and data engineering.
 

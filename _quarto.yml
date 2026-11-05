@@ -1,5 +1,7 @@
 project:
   type: website
+  resources:
+    - cv/wojciech_klimowicz_cv.pdf
   render:
     - "**/*.qmd" # Posts
     - "!research/index.qmd" # TODO: when there's anything
@@ -26,6 +28,8 @@ website:
         href: blog.qmd
       # - text: Research
       #   href: research/research.qmd
+      - text: CV
+        href: cv/wojciech_klimowicz_cv.pdf
       - text: Software
         href: software.qmd
 format:

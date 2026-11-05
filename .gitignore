@@ -18,3 +18,5 @@
 /drafts/
 README.md
 TODO.md
+
+**/*.quarto_ipynb
