@@ -19,7 +19,7 @@
 
 
 
-<div class="quarto-video"><video id="video_shortcode_videojs_video1" class="video-js vjs-default-skin vjs-fluid" controls="" preload="auto" data-setup="{}" title="A demo of using yazi to view an image diff."><source src="https://raw.githubusercontent.com/wklimowicz/assets/master/blog/yazi-diff-demo.mp4"></video></div>
+<div class="quarto-video"><video id="video_shortcode_videojs_video1" class="video-js vjs-default-skin vjs-big-play-centered vjs-fluid" controls="" preload="auto" data-setup="{}" title="A demo of using yazi to view an image diff."><source src="https://raw.githubusercontent.com/wklimowicz/assets/master/blog/yazi-diff-demo.mp4"></video></div>
 <section id="why" class="level2">
 <h2 class="anchored" data-anchor-id="why">Why?</h2>
 <p><a href="https://github.com/sxyazi/yazi">Yazi</a> is a terminal file manager and previewer, something like a modern remake of <a href="https://github.com/ranger/ranger">ranger</a>. It’s fast, easy to configure, has great support for images, and like most of the cool new terminal tools, its written in Rust. I spend a lot of time in the terminal, and also a lot of time comparing different versions of the same charts. This got me tinkering to see whether I can use Yazi as a diff tool for images in Git.</p>
