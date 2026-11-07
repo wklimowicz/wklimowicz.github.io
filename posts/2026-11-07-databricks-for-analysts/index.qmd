@@ -1,0 +1,22 @@
+---
+title: "Databricks for Analysts"
+date: 2026-11-07
+draft: false
+---
+
+I put together some slides for getting started with Databricks for the Economics of Education Research Centre. This might come in useful for other analysts: most of this is universal to all Databricks workspaces, except the naming convention for the SQL Warehouse environment variable (some call it `DATABRICKS_HTTP_PATH`).
+
+The deck covers:
+
+* Working in the browser on Databricks.
+* Working on a desktop IDE.
+* Some thoughts on best practice, computation (`tbl()` and `collect()`), version control, `AGENTS.md`, and context.
+
+
+::: {.column-page}
+<object data="slides.pdf#view=FitH" type="application/pdf" width="100%" height="600px" style="border: 1px solid #dee2e6; border-radius: 8px;">
+  <iframe src="slides.pdf#view=FitH" width="100%" height="600px" style="border: none;">
+    <p>Your browser does not support embedded PDFs. You can <a href="slides.pdf">download the PDF here</a>.</p>
+  </iframe>
+</object>
+:::
