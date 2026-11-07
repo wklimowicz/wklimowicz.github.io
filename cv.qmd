@@ -1,0 +1,59 @@
+---
+title: "Curriculum Vitae"
+page-layout: full
+toc: false
+---
+
+```{=html}
+<div class="cv-actions">
+  <a class="cv-download" href="cv/wojciech_klimowicz_cv.pdf" download>Download PDF</a>
+  <a href="cv/wojciech_klimowicz_cv.pdf" target="_blank" rel="noopener">Open in a new tab</a>
+</div>
+
+<div class="cv-viewer">
+  <iframe src="cv/wojciech_klimowicz_cv.pdf#view=FitH" title="Wojciech Klimowicz — Curriculum Vitae">
+    <p><a href="cv/wojciech_klimowicz_cv.pdf">Download the CV as a PDF.</a></p>
+  </iframe>
+</div>
+```
+
+<style>
+.cv-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.cv-download {
+  display: inline-block;
+  padding: 0.6rem 1rem;
+  border: 1px solid currentColor;
+  border-radius: 3px;
+  color: inherit;
+  text-decoration: none;
+}
+
+.cv-download:hover,
+.cv-download:focus-visible {
+  background: #f3f4f6;
+  color: inherit;
+}
+
+.cv-viewer {
+  /* One complete A4 page, plus room for the PDF toolbar and page margins. */
+  container-type: inline-size;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.cv-viewer iframe {
+  display: block;
+  width: 100%;
+  height: 1200px;
+  min-height: 650px;
+  border: 0;
+}
+</style>

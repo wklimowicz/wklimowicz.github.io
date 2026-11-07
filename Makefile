@@ -7,3 +7,6 @@ help: ## Show this help
 
 publish: ## Publish the site to GitHub Pages
 	quarto publish gh-pages --no-prompt
+
+preview: ## Preview the site locally
+	quarto preview

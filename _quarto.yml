@@ -29,7 +29,7 @@ website:
       # - text: Research
       #   href: research/research.qmd
       - text: CV
-        href: cv/wojciech_klimowicz_cv.pdf
+        href: cv.qmd
       - text: Software
         href: software.qmd
 format:
