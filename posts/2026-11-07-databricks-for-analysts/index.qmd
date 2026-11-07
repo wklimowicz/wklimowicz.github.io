@@ -2,6 +2,8 @@
 title: "Databricks for Analysts"
 date: 2026-11-07
 draft: false
+resources:
+  - slides.pdf
 ---
 
 I put together some slides for getting started with Databricks for the Economics of Education Research Centre. This might come in useful for other analysts: most of this is universal to all Databricks workspaces, except the naming convention for the SQL Warehouse environment variable (some call it `DATABRICKS_HTTP_PATH`).
