@@ -12,7 +12,7 @@ website:
   site-url: https://wklimowicz.github.io
   description: "Personal website, mostly about economics and coding"
   search: false
-  draft-mode: unlinked
+  draft-mode: gone
   repo-url: "https://github.com/wklimowicz/wklimowicz.github.io"
   repo-branch: master
   # favicon: TODO:
