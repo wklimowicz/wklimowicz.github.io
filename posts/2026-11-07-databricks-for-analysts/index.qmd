@@ -21,4 +21,10 @@ The deck covers:
     <p>Your browser does not support embedded PDFs. You can <a href="slides.pdf">download the PDF here</a>.</p>
   </iframe>
 </object>
+
+<div class="mt-2">
+  <a href="slides.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-outline-secondary btn-sm">
+    Open in new tab ↗
+  </a>
+</div>
 :::
