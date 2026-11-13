@@ -74,6 +74,6 @@
     "href": "posts/2026-11-07-databricks-for-analysts/index.html",
     "title": "Databricks for Analysts",
     "section": "",
-    "text": "I put together some slides for getting started with Databricks for the Economics of Education Research Centre. This might come in useful for other analysts: most of this is universal to all Databricks workspaces, except the naming convention for the SQL Warehouse environment variable (some call it DATABRICKS_HTTP_PATH).\nThe deck covers:\n\nWorking in the browser on Databricks.\nWorking on a desktop IDE.\nSome thoughts on best practice, computation (tbl() and collect()), version control, AGENTS.md, and context.\n\n\n\n\n&lt;p&gt;\nYour browser does not support embedded PDFs. You can &lt;a href=\"slides.pdf\"&gt;download the PDF here&lt;/a&gt;.\n&lt;/p&gt;"
+    "text": "I put together some slides for getting started with Databricks for the Economics of Education Research Centre. This might come in useful for other analysts: most of this is universal to all Databricks workspaces, except the naming convention for the SQL Warehouse environment variable (some call it DATABRICKS_HTTP_PATH).\nThe deck covers:\n\nWorking in the browser on Databricks.\nWorking on a desktop IDE.\nSome thoughts on best practice, computation (tbl() and collect()), version control, AGENTS.md, and context.\n\n\n\n\n&lt;p&gt;\nYour browser does not support embedded PDFs. You can &lt;a href=\"slides.pdf\"&gt;download the PDF here&lt;/a&gt;.\n&lt;/p&gt;\n\n\n\n Open in new tab ↗"
   }
 ]
